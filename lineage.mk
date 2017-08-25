@@ -35,7 +35,7 @@ TARGET_VENDOR_DEVICE_NAME := A0001
 PRODUCT_BUILD_PROP_OVERRIDES += TARGET_DEVICE=A0001 PRODUCT_NAME=bacon
 
 # Unofficial build ID
-TARGET_UNOFFICIAL_BUILD_ID := Sultan
+TARGET_UNOFFICIAL_BUILD_ID := Tom
 
 ## Use the latest approved GMS identifiers unless running a signed build
 ifneq ($(SIGN_BUILD),true)

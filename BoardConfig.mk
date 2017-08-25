@@ -190,5 +190,14 @@ WIFI_DRIVER_FW_PATH_STA          := "sta"
 WIFI_DRIVER_FW_PATH_AP           := "ap"
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
 
+# Compiler
+ifneq ($(HOST_OS),darwin)
+TARGET_USE_SDCLANG := true
+LOCAL_SDCLANG := true
+SDCLANG := true
+SDCLANG_PATH := prebuilts/clang/linux-x86/host/sdclang-3.8/bin
+SDCLANG_LTO_DEFS := device/qcom/common/sdllvm-lto-defs.mk
+endif
+
 # Inherit from the proprietary version
 include vendor/oneplus/bacon/BoardConfigVendor.mk
