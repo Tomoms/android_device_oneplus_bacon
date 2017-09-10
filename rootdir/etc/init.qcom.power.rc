@@ -56,10 +56,6 @@ on enable-low-power
     write /sys/kernel/msm_thermal/sampling_ms 8000
     write /sys/kernel/msm_thermal/enabled 1
 
-    start mpdecision
-
-    setprop sys.io.scheduler deadline
-
 on charger
     write /sys/module/lpm_levels/enable_low_power/l2 2
     write /sys/module/msm_pm/modes/cpu0/power_collapse/suspend_enabled 1
@@ -95,7 +91,6 @@ on property:recovery.perf.mode=0
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
 
 on property:sys.perf.profile=0
-    stop mpdecision
     write /sys/kernel/msm_thermal/user_maxfreq 1497600
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
@@ -104,7 +99,6 @@ on property:sys.perf.profile=0
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "conservative"
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "conservative"
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "conservative"
-    start mpdecision
 
     write /sys/class/devfreq/qcom,cpubw.40/governor "msm_cpufreq"
     write /sys/class/kgsl/kgsl-3d0/devfreq/governor "powersave"
@@ -123,7 +117,6 @@ on property:sys.perf.profile=0
     write /sys/kernel/msm_thermal/enabled 1
 
 on property:sys.perf.profile=1
-    stop mpdecision
     write /sys/kernel/msm_thermal/user_maxfreq 0
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
@@ -138,7 +131,6 @@ on property:sys.perf.profile=1
     write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 70
     write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1190400
     write /sys/devices/system/cpu/cpufreq/interactive/target_loads "85 1300000:35 1500000:50 1700000:75 1800000:95"
-    start mpdecision
 
     write /sys/class/devfreq/qcom,cpubw.40/governor "msm_cpufreq"
     write /sys/class/kgsl/kgsl-3d0/devfreq/governor "msm-adreno-tz"
@@ -157,7 +149,6 @@ on property:sys.perf.profile=1
     write /sys/kernel/msm_thermal/enabled 1
 
 on property:sys.perf.profile=2
-    stop mpdecision
     write /sys/kernel/msm_thermal/user_maxfreq 0
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
