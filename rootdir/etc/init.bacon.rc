@@ -450,8 +450,3 @@ service ssr_diag /system/bin/ssr_diag
     disabled
     user system
     group system
-
-# sysinit (/system/etc/init.d)
-service sysinit /system/bin/sysinit
-    user root
-    oneshot
