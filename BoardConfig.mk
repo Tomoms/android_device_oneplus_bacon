@@ -198,7 +198,7 @@ ifneq ($(HOST_OS),darwin)
 TARGET_USE_SDCLANG := true
 LOCAL_SDCLANG := true
 SDCLANG := true
-SDCLANG_PATH := prebuilts/clang/linux-x86/host/sdclang-4.0/bin
+SDCLANG_PATH := prebuilts/clang/linux-x86/host/sdclang-4.0/toolchains/llvm-Snapdragon_LLVM_for_Android_4.0/prebuilt/linux-x86_64/bin
 SDCLANG_LTO_DEFS := device/qcom/common/sdllvm-lto-defs.mk
 endif
 
