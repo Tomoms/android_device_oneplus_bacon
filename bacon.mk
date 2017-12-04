@@ -208,12 +208,14 @@ PRODUCT_PACKAGES += \
     init.bacon.rc \
     init.qcom.power.rc \
     init.qcom.usb.rc \
+    init.spectrum.rc \
     init.recovery.bacon.rc \
     libinit_bacon \
     ueventd.bacon.rc
 
 PRODUCT_PACKAGES += \
-    init.qcom.bt.sh
+    init.qcom.bt.sh \
+    init.spectrum.sh
 
 # Recovery
 PRODUCT_PACKAGES += \
