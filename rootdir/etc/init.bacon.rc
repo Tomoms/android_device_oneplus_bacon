@@ -154,15 +154,6 @@ on boot
     write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
     write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 53059
 
-    # add a cpuset for the camera daemon
-    # we want all cores for camera
-    mkdir /dev/cpuset/camera-daemon
-    write /dev/cpuset/camera-daemon/cpus 0-3
-    write /dev/cpuset/camera-daemon/mems 0
-    chown system system /dev/cpuset/camera-daemon
-    chown system system /dev/cpuset/camera-daemon/tasks
-    chmod 0664 /dev/cpuset/camera-daemon/tasks
-
 on post-fs-data
     mkdir /data/media 0770 media_rw media_rw
 
@@ -277,33 +268,28 @@ service rmt_storage /system/bin/rmt_storage
     class core
     user root
     group system wakelock
-    writepid /dev/cpuset/system-background/tasks
 
 service rfs_access /system/bin/rfs_access
     class core
     user system
     group system net_raw
-    writepid /dev/cpuset/system-background/tasks
 
 # QMUX must be in multiple groups to support external process connections
 service qmuxd /system/bin/qmuxd
     class main
     user radio
     group radio audio bluetooth gps diag qcom_diag
-    writepid /dev/cpuset/system-background/tasks
 
 service netmgrd /system/bin/netmgrd
     class main
     user root
     group radio
-    writepid /dev/cpuset/system-background/tasks
 
 # QCOM sensor
 service sensors /system/bin/sensors.qcom
     class late_start
     user root
     group root
-    writepid /dev/cpuset/system-background/tasks
 
 # Adjust socket buffer to enlarge TCP receive window for high bandwidth
 # but only if ro.data.large_tcp_window_size property is set.
@@ -314,7 +300,6 @@ service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main
     user root
     oneshot
-    writepid /dev/cpuset/system-background/tasks
 
 service p2p_supplicant /system/bin/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
@@ -331,7 +316,6 @@ service p2p_supplicant /system/bin/wpa_supplicant \
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
     oneshot
-    writepid /dev/cpuset/system-background/tasks
 
 service wpa_supplicant /system/bin/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
@@ -345,19 +329,16 @@ service wpa_supplicant /system/bin/wpa_supplicant \
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
     oneshot
-    writepid /dev/cpuset/system-background/tasks
 
 service loc_launcher /system/bin/loc_launcher
     #loc_launcher will start as root and set its uid to gps
     class late_start
     group gps inet net_raw diag qcom_diag net_admin wifi
-    writepid /dev/cpuset/system-background/tasks
 
 service qseecomd /system/bin/qseecomd
     class core
     user root
     group root
-    writepid /dev/cpuset/system-background/tasks
 
 service charger /sbin/healthd -c
     class charger
@@ -368,7 +349,6 @@ service hvdcp /system/bin/hvdcp
     class core
     user root
     disabled
-    writepid /dev/cpuset/system-background/tasks
 
 on property:persist.usb.hvdcp.detect=true
     start hvdcp
@@ -391,20 +371,17 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
-    writepid /dev/cpuset/camera-daemon/tasks
 
 service mpdecision /system/bin/mpdecision --avg_comp
    class main
    user root
    group root readproc
    disabled
-   writepid /dev/cpuset/system-background/tasks
 
 service time_daemon /system/bin/time_daemon
     class late_start
     user root
     group root
-    writepid /dev/cpuset/system-background/tasks
 
 on property:vold.decrypt=trigger_restart_framework
     start config_bt_addr
@@ -415,7 +392,6 @@ service config_bt_addr /system/bin/btnvtool -O
     user bluetooth
     group bluetooth radio
     oneshot
-    writepid /dev/cpuset/system-background/tasks
 
 service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
     class late_start
@@ -424,7 +400,6 @@ service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
     seclabel u:r:bluetooth_loader:s0
     disabled
     oneshot
-    writepid /dev/cpuset/system-background/tasks
 
 on property:bluetooth.hciattach=true
     start hciattach
@@ -436,20 +411,17 @@ service adsprpcd /system/bin/adsprpcd
    class main
    user media
    group media
-   writepid /dev/cpuset/system-background/tasks
 
 service audiod /system/bin/audiod
    class late_start
    user system
    group system
-   writepid /dev/cpuset/system-background/tasks
 
 service wcnss-service /system/bin/wcnss_service
     class main
     user system
     group system wifi qcom_diag diag radio
     oneshot
-    writepid /dev/cpuset/system-background/tasks
 
 # diag logging
 service diag_mdlog_start /system/bin/diag_mdlog
@@ -458,7 +430,6 @@ service diag_mdlog_start /system/bin/diag_mdlog
     group system qcom_diag diag sdcard_rw sdcard_r media_rw
     disabled
     oneshot
-    writepid /dev/cpuset/system-background/tasks
 
 service diag_mdlog_stop /system/bin/diag_mdlog -k
     class late_start
@@ -466,12 +437,10 @@ service diag_mdlog_stop /system/bin/diag_mdlog -k
     group system qcom_diag diag sdcard_rw sdcard_r media_rw
     disabled
     oneshot
-    writepid /dev/cpuset/system-background/tasks
 
 service qlogd /system/xbin/qlogd
     class main
     disabled
-    writepid /dev/cpuset/system-background/tasks
 on property:persist.sys.qlogd=1
     start qlogd
 on property:persist.sys.qlogd=0
@@ -482,4 +451,3 @@ service ssr_diag /system/bin/ssr_diag
     disabled
     user system
     group system
-    writepid /dev/cpuset/system-background/tasks

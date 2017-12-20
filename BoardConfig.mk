@@ -193,9 +193,6 @@ WIFI_DRIVER_FW_PATH_STA          := "sta"
 WIFI_DRIVER_FW_PATH_AP           := "ap"
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
 
-# Cpusets
-ENABLE_CPUSETS := true
-
 include device/qcom/common/sdclang/sdclang.mk
 # Compiler
 ifneq ($(HOST_OS),darwin)

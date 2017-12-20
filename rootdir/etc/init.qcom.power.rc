@@ -88,13 +88,6 @@ on boot
 on property:sys.boot_completed=1
     trigger enable-low-power
 
-    # Update cpusets now that boot is complete and we want better load balancing
-    write /dev/cpuset/top-app/cpus 0-3
-    write /dev/cpuset/foreground/boost/cpus 0-2
-    write /dev/cpuset/foreground/cpus 0-1
-    write /dev/cpuset/background/cpus 0
-    write /dev/cpuset/system-background/cpus 0-1
-
 on property:init.svc.recovery=running
     write /sys/class/leds/button-backlight/brightness 255
     trigger enable-low-power
