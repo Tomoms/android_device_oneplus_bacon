@@ -63,6 +63,9 @@ ro.use_data_netmgrd=true
 
 telephony.lteOnGsmDevice=1
 
+# Fast Dormancy
+persist.env.fastdorm.enabled=true
+
 # SdcardFS
 ro.sys.sdcardfs=true
 
