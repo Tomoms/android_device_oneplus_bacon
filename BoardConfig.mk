@@ -169,6 +169,10 @@ TARGET_RELEASETOOLS_EXTENSIONS := $(PLATFORM_PATH)
 # Compile libhwui in performance mode
 HWUI_COMPILE_FOR_PERF := true
 
+WITH_DEXPREOPT := true
+DONT_DEXPREOPT_PREBUILTS := true
+USE_DEX2OAT_DEBUG := false
+
 # RPC
 TARGET_NO_RPC := true
 
