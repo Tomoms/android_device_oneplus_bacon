@@ -116,7 +116,8 @@ PRODUCT_PACKAGES += \
 # Limit dex2oat threads to improve thermals
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dex2oat-threads=2 \
-    dalvik.vm.image-dex2oat-threads=4
+    dalvik.vm.image-dex2oat-threads=4 \
+    ro.am.reschedule_service=true
 
 # Media profile
 PRODUCT_COPY_FILES += \
@@ -126,6 +127,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/configs/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
     $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    qcom.hw.aac.encoder=true
 
 # Media
 PRODUCT_PACKAGES += \
