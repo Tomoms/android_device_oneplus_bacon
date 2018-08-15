@@ -20,8 +20,12 @@
 
 # Kernel
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=bacon user_debug=31 msm_rtb.filter=0x3F ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1
-TARGET_KERNEL_CONFIG := lineageos_bacon_defconfig
+TARGET_KERNEL_CONFIG := bacon_defconfig
 TARGET_KERNEL_SOURCE := kernel/oppo/msm8974
+KERNEL_TOOLCHAIN_PREFIX := arm-eabi-
+SDCLANG_COMMON_FLAGS := -O3 -Wno-vectorizer-no-neon
+SDCLANG_PATH := /run/media/tfonda/android/oreo/prebuilts/clang/host/linux-x86/sdclang-4.0.14/bin
+SDCLANG_PATH_2 := /run/media/tfonda/android/oreo/prebuilts/clang/host/linux-x86/sdclang-4.0.14/bin
 
 # Assert
 TARGET_OTA_ASSERT_DEVICE := bacon,A0001
