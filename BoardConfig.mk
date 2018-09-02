@@ -24,8 +24,8 @@ TARGET_KERNEL_CONFIG := bacon_defconfig
 TARGET_KERNEL_SOURCE := kernel/oppo/msm8974
 KERNEL_TOOLCHAIN_PREFIX := arm-eabi-
 SDCLANG_COMMON_FLAGS := -O3 -Wno-vectorizer-no-neon
-SDCLANG_PATH := /run/media/tfonda/android/oreo/prebuilts/clang/host/linux-x86/sdclang-4.0.14/bin
-SDCLANG_PATH_2 := /run/media/tfonda/android/oreo/prebuilts/clang/host/linux-x86/sdclang-4.0.14/bin
+SDCLANG_PATH := prebuilts/clang/host/linux-x86/sdclang-4.0.14/bin
+SDCLANG_PATH_2 := prebuilts/clang/host/linux-x86/sdclang-4.0.14/bin
 
 # Assert
 TARGET_OTA_ASSERT_DEVICE := bacon,A0001
@@ -55,6 +55,11 @@ TARGET_LIBINIT_MSM8974_DEFINES_FILE := device/oneplus/bacon/init/init_bacon.cpp
 
 # NFC
 BOARD_NFC_CHIPSET := pn547
+
+# jemalloc
+MALLOC_SVELTE := true
+
+TARGET_BOOTANIMATION_HALF_RES := true
 
 # Properties
 TARGET_SYSTEM_PROP += device/oneplus/bacon/system.prop
