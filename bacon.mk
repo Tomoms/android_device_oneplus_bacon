@@ -69,7 +69,8 @@ PRODUCT_PACKAGES += \
 
 # Vendor security patch level
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.lineage.build.vendor_security_patch=2016-09-01
+    ro.lineage.build.vendor_security_patch=2016-09-01 \
+    ro.am.reschedule_service=true
 
 # Call the proprietary setup
 $(call inherit-product, vendor/oneplus/bacon/bacon-vendor.mk)
