@@ -25,6 +25,7 @@ TARGET_KERNEL_SOURCE := kernel/oppo/msm8974
 KERNEL_TOOLCHAIN_PREFIX := arm-eabi-
 SDCLANG_COMMON_FLAGS := -O3 -fvectorize -mllvm -polly-run-dce
 SDCLANG_PATH := prebuilts/clang/host/linux-x86/sdclang-4.0.14/bin
+SDCLANG_PATH_2 := prebuilts/clang/host/linux-x86/sdclang-4.0.14/bin
 
 # Assert
 TARGET_OTA_ASSERT_DEVICE := bacon,A0001
