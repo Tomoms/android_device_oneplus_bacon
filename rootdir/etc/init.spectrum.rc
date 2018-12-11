@@ -1,0 +1,154 @@
+# SPECTRUM KERNEL MANAGER
+# Ramdisk file for profile based kernel management
+# Implimentation inspired by Franco's fku profiles
+
+# Initialization
+on property:sys.boot_completed=1
+   # Set default profile on first boot
+   exec u:r:init:s0 root root -- /init.spectrum.sh
+   exec u:r:su:s0 root root -- /init.spectrum.sh
+   # Enable Spectrum support
+   setprop spectrum.support 1
+   # Add kernel name
+   setprop persist.spectrum.kernel Argon
+
+# Balance (default profile)
+on property:persist.spectrum.profile=0
+    write /sys/kernel/msm_mpdecision/conf/enabled 0
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1958400
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 1958400
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 1958400
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq 1958400
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor impulse
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor impulse
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor impulse
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor impulse
+    write /sys/devices/system/cpu/cpufreq/impulse/go_lowspeed_load 5
+    write /sys/devices/system/cpu/cpufreq/impulse/above_hispeed_delay "20000 1400000:40000 1700000:20000"
+    write /sys/devices/system/cpu/cpufreq/impulse/go_hispeed_load 70
+    write /sys/devices/system/cpu/cpufreq/impulse/hispeed_freq 1190400
+    write /sys/devices/system/cpu/cpufreq/impulse/target_loads "85 1300000:35 1500000:50 1700000:75 1800000:95"
+    write /sys/kernel/msm_mpdecision/conf/min_cpus_online 2
+    write /sys/kernel/msm_mpdecision/conf/max_cpus_online_susp 3
+    write /sys/kernel/msm_mpdecision/conf/idle_freq 1036800
+    write /sys/kernel/msm_mpdecision/conf/enabled 1
+    write /sys/kernel/cpu_input_boost/enabled 1
+    write /sys/kernel/cpu_input_boost/ib_duration_ms 50
+    write /sys/class/devfreq/qcom,cpubw.40/governor "cpubw_hwmon"
+    write /sys/class/kgsl/kgsl-3d0/devfreq/governor "msm-adreno-tz"
+    write /sys/kernel/msm_thermal/enabled 0
+    write /sys/kernel/msm_thermal/zone0 "1728000 43 42"
+    write /sys/kernel/msm_thermal/zone1 "1574400 46 44"
+    write /sys/kernel/msm_thermal/zone2 "1497600 49 47"
+    write /sys/kernel/msm_thermal/zone3 "1267200 53 50"
+    write /sys/kernel/msm_thermal/zone4 "1190400 57 54"
+    write /sys/kernel/msm_thermal/zone5 "1036800 60 58"
+    write /sys/kernel/msm_thermal/zone6 "960000 66 64"
+    write /sys/kernel/msm_thermal/zone7 "729600 81 77"
+    write /sys/kernel/msm_thermal/sampling_ms 8000
+    write /sys/kernel/msm_thermal/enabled 1
+    write /sys/class/mmc_host/mmc0/clk_scaling/scale_down_in_low_wr_load 1
+
+# Performance (based on DrunkSauce Lite)
+on property:persist.spectrum.profile=1
+    write /sys/kernel/msm_mpdecision/conf/enabled 0
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 2457600
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 2457600
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 2457600
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq 2457600
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor impulse
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor impulse
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor impulse
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor impulse
+    write /sys/devices/system/cpu/cpufreq/impulse/go_lowspeed_load 2
+    write /sys/devices/system/cpu/cpufreq/impulse/above_hispeed_delay "20000 1400000:30000 1700000:10000"
+    write /sys/devices/system/cpu/cpufreq/impulse/go_hispeed_load 50
+    write /sys/devices/system/cpu/cpufreq/impulse/hispeed_freq 1497600
+    write /sys/devices/system/cpu/cpufreq/impulse/target_loads "45 1700000:40 1900000:50"
+    write /sys/kernel/cpu_input_boost/enabled 1
+    write /sys/kernel/cpu_input_boost/ib_duration_ms 140
+    write /sys/class/devfreq/qcom,cpubw.40/governor "performance"
+    write /sys/class/kgsl/kgsl-3d0/devfreq/governor "msm-adreno-tz"
+    write /sys/kernel/msm_thermal/enabled 0
+    write /sys/kernel/msm_thermal/zone0 "1958400 46 45"
+    write /sys/kernel/msm_thermal/zone1 "1574400 49 47"
+    write /sys/kernel/msm_thermal/zone2 "1497600 52 50"
+    write /sys/kernel/msm_thermal/zone3 "1267200 56 53"
+    write /sys/kernel/msm_thermal/zone4 "1190400 60 57"
+    write /sys/kernel/msm_thermal/zone5 "1036800 63 61"
+    write /sys/kernel/msm_thermal/zone6 "960000 69 67"
+    write /sys/kernel/msm_thermal/zone7 "729600 80 76"
+    write /sys/kernel/msm_thermal/sampling_ms 2000
+    write /sys/kernel/msm_thermal/enabled 1
+    write /sys/class/mmc_host/mmc0/clk_scaling/scale_down_in_low_wr_load 0
+
+# Battery
+on property:persist.spectrum.profile=2
+    write /sys/kernel/msm_mpdecision/conf/enabled 0
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1958400
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 1958400
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 1958400
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq 1958400
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor zzmoove
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor zzmoove
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor zzmoove
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor zzmoove
+    write /sys/devices/system/cpu/cpufreq/zzmoove/profile_number 2
+    write /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug 0
+    write /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug_sleep 0
+    write /sys/devices/system/cpu/cpufreq/zzmoove/hotplug_min_limit 2
+    write /sys/kernel/cpu_input_boost/enabled 0
+    write /sys/class/devfreq/qcom,cpubw.40/governor "cpubw_hwmon"
+    write /sys/class/kgsl/kgsl-3d0/devfreq/governor "powersave"
+    write /sys/kernel/msm_thermal/enabled 0
+    write /sys/kernel/msm_thermal/zone0 "1728000 43 42"
+    write /sys/kernel/msm_thermal/zone1 "1574400 46 44"
+    write /sys/kernel/msm_thermal/zone2 "1497600 49 47"
+    write /sys/kernel/msm_thermal/zone3 "1267200 53 50"
+    write /sys/kernel/msm_thermal/zone4 "1190400 57 54"
+    write /sys/kernel/msm_thermal/zone5 "1036800 60 58"
+    write /sys/kernel/msm_thermal/zone6 "960000 66 64"
+    write /sys/kernel/msm_thermal/zone7 "729600 81 77"
+    write /sys/kernel/msm_thermal/sampling_ms 8000
+    write /sys/kernel/msm_thermal/enabled 1
+    write /sys/class/mmc_host/mmc0/clk_scaling/scale_down_in_low_wr_load 1
+
+# Gaming
+on property:persist.spectrum.profile=3
+    write /sys/kernel/msm_mpdecision/conf/enabled 0
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 2572800
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 2572800
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 2572800
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq 2572800
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor ondemand
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor ondemand
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor ondemand
+    write /sys/kernel/cpu_input_boost/enabled 1
+    write /sys/kernel/cpu_input_boost/ib_duration_ms 140
+    write /sys/class/devfreq/qcom,cpubw.40/governor "performance"
+    write /sys/class/kgsl/kgsl-3d0/devfreq/governor "performance"
+    write /sys/kernel/msm_thermal/enabled 0
+    write /sys/kernel/msm_thermal/zone0 "1958400 46 45"
+    write /sys/kernel/msm_thermal/zone1 "1574400 49 47"
+    write /sys/kernel/msm_thermal/zone2 "1497600 52 50"
+    write /sys/kernel/msm_thermal/zone3 "1267200 56 53"
+    write /sys/kernel/msm_thermal/zone4 "1190400 60 57"
+    write /sys/kernel/msm_thermal/zone5 "1036800 63 61"
+    write /sys/kernel/msm_thermal/zone6 "960000 69 67"
+    write /sys/kernel/msm_thermal/zone7 "729600 80 76"
+    write /sys/kernel/msm_thermal/sampling_ms 2000
+    write /sys/kernel/msm_thermal/enabled 1
+    write /sys/class/mmc_host/mmc0/clk_scaling/scale_down_in_low_wr_load 0
