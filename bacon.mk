@@ -43,6 +43,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
+# Doze
+PRODUCT_PACKAGES += \
+    BaconDoze
+
 # NFC
 PRODUCT_PACKAGES += \
     com.android.nfc_extras \
