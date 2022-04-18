@@ -21,7 +21,7 @@
 DEVICE_PATH := device/oneplus/bacon
 
 # Kernel
-BOARD_KERNEL_CMDLINE := androidboot.hardware=bacon ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1
+BOARD_KERNEL_CMDLINE := androidboot.hardware=bacon ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1 androidboot.selinux=permissive
 TARGET_KERNEL_CONFIG := lineageos_bacon_defconfig
 TARGET_KERNEL_SOURCE := kernel/oppo/msm8974
 
