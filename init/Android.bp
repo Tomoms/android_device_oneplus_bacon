@@ -20,7 +20,7 @@ cc_library_static {
     srcs: ["init_bacon.cpp"],
     include_dirs: [
         "device/oppo/msm8974-common/init",
-        "system/core/base/include",
+        "system/libbase/include",
         "system/core/init",
     ]
 }
