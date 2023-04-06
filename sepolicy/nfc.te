@@ -1,0 +1,3 @@
+allow nfc vendor_data_file:dir { add_name write };
+allow nfc vendor_data_file:file { create getattr open read write };
+
